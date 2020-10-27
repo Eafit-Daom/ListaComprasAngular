@@ -52,8 +52,13 @@ export class FormProductoComponent implements OnInit {
   }
 
   private create(producto: Producto): void {
-    this.productoService.createProducto(producto);
-    this.location.back();
+    const result = this.productoService.createProducto(producto);
+    result.then((resultado: any) => {
+      console.log(resultado);       // Exito|
+      this.location.back();
+    }, (error: any) => {
+      console.error(error);
+    });
   }
 
 }
