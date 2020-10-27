@@ -1,6 +1,6 @@
 <section fxLayout="row wrap" fxLayoutAlign="center center">
   <mat-card fxFlex="500px" fxFlex.xs="100%">
-    <mat-card-title>Editar Producto</mat-card-title>
+    <p><mat-card-title>Editar Producto {{ this.title }}</mat-card-title></p>
     <form [formGroup]="formularioProducto" autocomplete="off" novalidate
       (ngSubmit)="accionEnviar(formularioProducto.value)" fxLayout="column wrap" fxLayoutAlign="center center"
       fxLayoutGap="10px">
@@ -30,17 +30,6 @@
             <mat-option value="Aseo">Aseo</mat-option>
           </mat-select>
         </mat-form-field>
-        <!--[Campo de fecha]---------------------->
-        <mat-form-field>
-          <mat-label>Fecha de creación</mat-label>
-          <input matInput [matDatepicker]="picker" placeholder="Fecha de creación" formControlName="fechaCreacion">
-          <mat-hint align="end">Fecha DD/MM/AAAA de
-            creación</mat-hint>
-          <mat-error *ngIf="hasError('cantidadMinima',
-  'required')">Fecha de Creación es requerida</mat-error>
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
         <!--[Campo numerico]---------------------->
         <mat-form-field>
           <input matInput type="number" placeholder="Cantidad mínima requerida" formControlName="cantidadMinima"
@@ -59,7 +48,7 @@
       </mat-card-content>
       <mat-card-actions align="end">
         <button mat-raised-button color="primary" [disabled]="!formularioProducto.valid">
-          Adicionar registro
+          Actualizar registro
         </button>
         <button mat-raised-button color="warn" type="button" (click)="onCancel()">
           Cancelar
@@ -68,4 +57,3 @@
     </form>
   </mat-card>
 </section>
-Ejemplo de un formulario con Angular Material

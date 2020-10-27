@@ -19,7 +19,7 @@ export class ProductoService {
 
    // ---[create]--------------------
   createProducto(producto: Producto): any {
-    return this.productoRef.add({ ...producto });
+    return this.productoRef.doc(String(producto.id)).set({ ...producto });
   }
 
    // ---[read]--------------------
@@ -27,20 +27,20 @@ export class ProductoService {
     return this.productoRef;
   }
 
-  getProducto(productoId: string): AngularFirestoreCollection<Producto>{
+  getProducto(productoId: number): AngularFirestoreCollection<Producto>{
     return this.firestore.collection(
       'productos', ref => ref.where('id', '==', productoId)
     );
   }
 
  // ---[update]--------------------
-  updateProducto(id: string, data: any): any{
-    return this.productoRef.doc(id).update(data);
+  updateProducto(id: number, data: Producto): any{
+    return this.productoRef.doc(String(id)).set({ ...data });
   }
 
   // ---[delete]--------------------
-  deleteProducto(productoId: string): any{
-    this.productoRef.doc(productoId).delete();
+  deleteProducto(productoId: number): any{
+    this.productoRef.doc(String(productoId)).delete();
   }
 
   getCount(): any {
@@ -51,7 +51,7 @@ export class ProductoService {
     });
   }
 
-  getObservable(): any {
+  getArrObservable(): any {
     return this.getProductos().snapshotChanges().pipe(
       map(changes =>
         changes.map(c =>
@@ -65,9 +65,31 @@ export class ProductoService {
     );
   }
 
-  getArrProducts(): any {
+  getDataArrObservable(): any {
     return new Promise( (resolve) => {
-      this.getObservable().subscribe( data => {
+      this.getArrObservable().subscribe( data => {
+        resolve(data);
+      });
+    });
+  }
+
+  getObservable(productoId: number): any {
+    return this.getProducto(productoId).snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c =>
+          // tslint:disable-next-line: max-line-length
+          ({ ...c.payload.doc.data(),
+            cantidad: Number(c.payload.doc.data().cantidad),
+            cantidadMinima: Number(c.payload.doc.data().cantidadMinima),
+            fechaCreacion: formatDate(c.payload.doc.data().fechaCreacion.toDate(), 'yyyy-MM-dd', 'en-US') })
+        )
+      )
+    );
+  }
+
+  getDataObservable(productoId: number): any {
+    return new Promise( (resolve) => {
+      this.getObservable(productoId).subscribe( data => {
         resolve(data);
       });
     });

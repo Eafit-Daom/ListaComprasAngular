@@ -24,7 +24,7 @@ export class IndexProductoComponent implements AfterViewInit  {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private productoService: ProductoService, public router: Router) {
-    this.productoService.getArrProducts().then((arrProducts) => {
+    this.productoService.getDataArrObservable().then((arrProducts) => {
         this.dataSource = new MatTableDataSource(arrProducts);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
