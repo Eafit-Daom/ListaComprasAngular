@@ -10,16 +10,9 @@
  }
 
  .estiloSection {
-  background: #061f3f0a;
-  border-radius: 15px;
-  border: 1px solid rgba(0, 0, 0, 0.096);
   padding: 10px;
-  width: 80%;
-  height: 300px;
-  position: relative;
-  border-style: ridge;
-  margin-top: 100px;
-  margin-bottom: 100px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   margin-right: 10px;
   margin-left: 10px;
  }

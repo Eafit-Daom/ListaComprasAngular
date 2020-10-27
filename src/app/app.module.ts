@@ -50,20 +50,18 @@ import { environment } from '../environments/environment';
 // ---[Compontes]-----------------
 import { MenuComponent } from './escritorio/menu/menu.component';
 import { PiePaginaComponent } from './escritorio/pie-pagina/pie-pagina.component';
-import { FormularioComponent } from './ejemplo/formulario/formulario.component';
-import { ResumenComponent } from './ejemplo/resumen/resumen.component';
 import { FormProductoComponent } from './componentes/producto/form-producto/form-producto.component';
 import { IndexProductoComponent } from './componentes/producto/index-producto/index-producto.component';
+import { EditProductoComponent } from './componentes/producto/edit-producto/edit-producto.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
     PiePaginaComponent,
-    FormularioComponent,
-    ResumenComponent,
     FormProductoComponent,
-    IndexProductoComponent
+    IndexProductoComponent,
+    EditProductoComponent
   ],
   imports: [
     BrowserModule,

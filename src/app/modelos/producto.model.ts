@@ -1,8 +1,8 @@
 export class Producto {
-  id: string;
+  id: number;
   nombre: string;
   categoria: string;
-  fechaCreacion: Date;
+  fechaCreacion: any;
   cantidadMinima: number;
   cantidad: number;
 }

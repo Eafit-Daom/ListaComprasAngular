@@ -7,12 +7,13 @@
 </head>
 <body>
   <div id="global">
-    <div id="cabecera"  class="estiloHeader">
+    <div>
       <app-menu></app-menu>
     </div>
     <div id="principal" class="estiloSection">
-      Contenido de la página.
-      <router-outlet></router-outlet>
+      <div>
+        <router-outlet></router-outlet>
+      </div>
     </div>
     <div id="pie" class="estiloFooter">
       <app-pie-pagina></app-pie-pagina>

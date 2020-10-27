@@ -1,7 +1,10 @@
+import { formatDate } from '@angular/common';
 import { Injectable } from '@angular/core';
 
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { map } from 'rxjs/operators';
 import { Producto } from 'src/app/modelos/producto.model';
+import 'rxjs/add/operator/toPromise';
 
 @Injectable({
   providedIn: 'root'
@@ -38,6 +41,36 @@ export class ProductoService {
   // ---[delete]--------------------
   deleteProducto(productoId: string): any{
     this.productoRef.doc(productoId).delete();
+  }
+
+  getCount(): any {
+    return new Promise( (resolve) => {
+      this.productoRef.get().toPromise().then( querySnapshot => {
+        resolve(querySnapshot.size);
+      });
+    });
+  }
+
+  getObservable(): any {
+    return this.getProductos().snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c =>
+          // tslint:disable-next-line: max-line-length
+          ({ ...c.payload.doc.data(),
+            cantidad: Number(c.payload.doc.data().cantidad),
+            cantidadMinima: Number(c.payload.doc.data().cantidadMinima),
+            fechaCreacion: formatDate(c.payload.doc.data().fechaCreacion.toDate(), 'yyyy-MM-dd hh:mm:ss', 'en-US') })
+        )
+      )
+    );
+  }
+
+  getArrProducts(): any {
+    return new Promise( (resolve) => {
+      this.getObservable().subscribe( data => {
+        resolve(data);
+      });
+    });
   }
 
 }
