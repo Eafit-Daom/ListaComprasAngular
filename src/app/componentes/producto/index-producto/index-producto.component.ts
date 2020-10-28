@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 // ---[Servicio de datos]--------------------------------
 import { ProductoService } from 'src/app/servicios/producto.service';
 import { Producto } from 'src/app/modelos/producto.model';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { CourseDialogComponent } from 'src/app/escritorio/material/course-dialog/course-dialog.component';
 
 @Component({
   selector: 'app-index-producto',
@@ -23,11 +25,19 @@ export class IndexProductoComponent implements AfterViewInit  {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private productoService: ProductoService, public router: Router) {
+  constructor(private productoService: ProductoService, public router: Router, private dialog: MatDialog) {
     this.productoService.getDataArrObservable().then((arrProducts) => {
         this.dataSource = new MatTableDataSource(arrProducts);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
+    });
+  }
+
+  refresh(): any {
+    this.productoService.getDataArrObservable().then((arrProducts) => {
+      this.dataSource = new MatTableDataSource(arrProducts);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
     });
   }
 
@@ -42,5 +52,30 @@ export class IndexProductoComponent implements AfterViewInit  {
 
   ngAfterViewInit(): void {
   }
+
+  openDeleteDialog(nombre: string, id: number): any {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = {
+        description: 'Desea eliminar el producto: ' + nombre,
+        title: 'Eliminar Producto',
+        txtAcept: 'Eliminar',
+        txtCancel: 'Cancelar'
+    };
+
+    this.dialog.open(CourseDialogComponent, dialogConfig);
+    const dialogRef = this.dialog.open(CourseDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      this.dialog.closeAll();
+      if (result){
+        this.productoService.deleteProducto(id).then(() => {
+          this.refresh();
+        }, (error: any) => {
+          console.error(error);
+        });
+      }
+    });
+}
 
 }

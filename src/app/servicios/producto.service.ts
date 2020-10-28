@@ -40,7 +40,7 @@ export class ProductoService {
 
   // ---[delete]--------------------
   deleteProducto(productoId: number): any{
-    this.productoRef.doc(String(productoId)).delete();
+    return this.productoRef.doc(String(productoId)).delete();
   }
 
   getCount(): any {

@@ -53,6 +53,7 @@ import { PiePaginaComponent } from './escritorio/pie-pagina/pie-pagina.component
 import { FormProductoComponent } from './componentes/producto/form-producto/form-producto.component';
 import { IndexProductoComponent } from './componentes/producto/index-producto/index-producto.component';
 import { EditProductoComponent } from './componentes/producto/edit-producto/edit-producto.component';
+import { CourseDialogComponent } from './escritorio/material/course-dialog/course-dialog.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { EditProductoComponent } from './componentes/producto/edit-producto/edit
     PiePaginaComponent,
     FormProductoComponent,
     IndexProductoComponent,
-    EditProductoComponent
+    EditProductoComponent,
+    CourseDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -109,6 +111,7 @@ import { EditProductoComponent } from './componentes/producto/edit-producto/edit
     MatDatepickerModule,
     MatNativeDateModule
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [CourseDialogComponent]
 })
 export class AppModule { }

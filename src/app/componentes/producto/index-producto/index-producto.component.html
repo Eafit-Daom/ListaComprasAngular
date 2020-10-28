@@ -59,7 +59,7 @@
       <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> Acciones </th>
       <td mat-cell *matCellDef="let element">
         <button mat-raised-button color="primary" (click)="router.navigate(['/editproducto', element.id]);">Editar</button> &nbsp;
-        <button mat-raised-button color="warn">Eliminar</button>
+        <button mat-raised-button color="warn" (click)="openDeleteDialog(element.nombre, element.id)">Eliminar</button>
       </td>
       <td mat-footer-cell cdkDrag *matFooterCellDef> Acciones </td>
     </ng-container>
