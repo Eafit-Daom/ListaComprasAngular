@@ -9,6 +9,7 @@ import { Location } from '@angular/common';
 import { ProductoService } from 'src/app/servicios/producto.service';
 import { Producto } from 'src/app/modelos/producto.model';
 import { Button } from 'protractor';
+import { empty } from 'rxjs';
 
 @Component({
   selector: 'app-form-producto',
@@ -32,6 +33,7 @@ export class FormProductoComponent implements OnInit {
     });
   }
 
+ 
   ngOnInit(): void {
     this.formularioProducto = new FormGroup({
       nombre: new FormControl('', [Validators.required, Validators.maxLength(60)]),
